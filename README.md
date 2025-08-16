@@ -65,7 +65,7 @@ open http://localhost:8000
 
 * All computation is performed in the browser. If AI is enabled, the API key is stored locally (localStorage) and can be cleared in settings.
 
-## License (Recommended)
+## License
 
 **MIT License**
 
@@ -125,5 +125,5 @@ open http://localhost:8000
 ## 隐私
 - 计算全部在浏览器内完成；若启用 AI，API Key 仅存于本地（localStorage），可在设置中清除。
 
-## 许可证（建议）
+## 许可证
 **MIT License**
