@@ -6,6 +6,9 @@ Advanced Cerebrovascular Disease Risk Prediction System Based on Machine Learnin
 A **browser-based** clinical reference tool that provides **predicted stroke probability** using **parameter scoring** and **pre-built ML inference**.
 **No model retraining, no server dependency** — all computation runs locally in the browser, with an optional **AI analysis** highlight.
 
+<img width="2758" height="1440" alt="image" src="https://github.com/user-attachments/assets/14017f9a-2240-4d5e-992a-81aabaa582c4" />
+
+
 ## Key Notes
 
 * **Scoring rules on the homepage**: vessel-specific stenosis → points, X\_score, Framingham, etc. are **implemented and displayed on the `homepage`**, so users can see how each input contributes.
@@ -38,6 +41,7 @@ start http://localhost:8000
 # macOS
 open http://localhost:8000
 ```
+<img width="2758" height="1440" alt="image" src="https://github.com/user-attachments/assets/ec461ab8-f46d-4016-bc64-0908011bb110" />
 
 ## Workflow Overview
 
