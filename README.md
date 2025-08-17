@@ -15,7 +15,10 @@ A **browser-based** clinical reference tool that provides **predicted stroke pro
 * **Prediction only**: probabilities are computed in the browser using preloaded data and statistics.
 * **Purpose of `models/`**: stores **calibrated training datasets for inference** only.
 * **Evaluation & calibration**: AUC/ROC, Brier score, Hosmer–Lemeshow (H–L), etc. (if enabled).
-* **AI (optional)**: Markdown-formatted health recommendations.
+* **AI **: Markdown-formatted health recommendations.
+
+<img width="2860" height="1430" alt="image" src="https://github.com/user-attachments/assets/c5920746-6324-4679-8685-f7d2d054fac5" />
+
 
 ## Quick Start
 
