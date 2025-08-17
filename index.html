@@ -3350,40 +3350,48 @@ function calculateRisk(inputFeatures, modelKey) {<br>
             currentTab = tabName;
         }
 
-        function resetModel(modelName) {
-            const modelNum = (modelType.match(/^model(\d+)/) || [])[1] || '1';
-            
+          function resetModel(modelName) {
+            // 兼容 model1 / model2 / ... 以及 model1x / model2xf / ...
+            const numMap = {
+            model1: '1', model2: '2', model3: '3', model4: '4',
+            model1x: '1', model2xf: '2', model3fg: '3', model4fgct: '4'
+            };
+            const modelNum = numMap[modelName] || ((String(modelName).match(/\d+/) || [])[0] || '1');
+
+            // 清空本模型 Tab 内的所有输入
             const inputs = document.querySelectorAll(`#${modelName} input, #${modelName} select`);
             inputs.forEach(input => {
-                if (input.type === 'checkbox') {
-                    input.checked = false;
-                } else {
-                    input.value = '';
-                }
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            } else {
+                input.value = '';
+            }
             });
 
+            // 隐藏结果卡片
             const resultsDiv = document.getElementById(`results${modelNum}`);
-            if (resultsDiv) {
-                resultsDiv.style.display = 'none';
-            }
+            if (resultsDiv) resultsDiv.style.display = 'none';
 
-            // Reset AI analysis
+            // 关闭 AI 分析区
             const aiAnalysisDiv = document.getElementById(`aiAnalysis${modelNum}`);
             if (aiAnalysisDiv) {
-                aiAnalysisDiv.classList.remove('show');
-                aiAnalysisDiv.style.display = 'none';
+            aiAnalysisDiv.classList.remove('show');
+            aiAnalysisDiv.style.display = 'none';
             }
 
-            // Clear AI analysis history for this model
+            // 清理本模型的 AI 分析历史
+            if (typeof window.aiAnalysisHistory === 'undefined') {
+            window.aiAnalysisHistory = {};
+            }
             if (aiAnalysisHistory[modelName]) {
-                delete aiAnalysisHistory[modelName];
+            delete aiAnalysisHistory[modelName];
             }
 
-            // Re-enable AI button
+            // 重新启用 AI 按钮
             const aiButton = document.getElementById(`aiAnalyze${modelNum}`);
             if (aiButton) {
-                aiButton.disabled = false;
-                aiButton.textContent = currentLanguage === 'en' ? 'AI Analysis' : 'AI分析';
+            aiButton.disabled = false;
+            aiButton.textContent = currentLanguage === 'en' ? 'AI Analysis' : 'AI分析';
             }
         }
 
@@ -4104,13 +4112,20 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 return;
             }
 
-            // Check if we have API key configured
+            // 在判定前，先从 localStorage 热读一次，确保是最新配置
+            aiConfig = JSON.parse(localStorage.getItem('aiConfig') || '{}');
+
             if (!aiConfig.provider || !aiConfig.apiKey) {
                 showApiKeyModal(() => {
+                    // 保存后再读一次更稳妥
+                    aiConfig = JSON.parse(localStorage.getItem('aiConfig') || '{}');
+                    if (aiConfig.provider && aiConfig.apiKey) {
                     analyzeWithAI(modelType);
+                    }
                 });
                 return;
             }
+
 
             // Get current calculation data
             if (!window.currentCalculation || window.currentCalculation.model !== modelType) {
@@ -4152,9 +4167,14 @@ function calculateRisk(inputFeatures, modelKey) {<br>
 
 
             // Check if we have API key configured
+            aiConfig = JSON.parse(localStorage.getItem('aiConfig') || '{}');
+
             if (!aiConfig.provider || !aiConfig.apiKey) {
                 showApiKeyModal(() => {
+                    aiConfig = JSON.parse(localStorage.getItem('aiConfig') || '{}');
+                    if (aiConfig.provider && aiConfig.apiKey) {
                     analyzeHistoryWithAI();
+                    }
                 });
                 return;
             }
@@ -4810,12 +4830,18 @@ Model 4 (F+G+CT):Framingham_Score + Gensini_Score + CT-FFR
                 alert(window.currentLanguage === "en" ? "Please choose a model." : "请选择模型。");
                 return;
             }
-            localStorage.setItem("aiConfig", JSON.stringify({ provider, apiKey, model }));
+            const newCfg = { provider, apiKey, model };
+            localStorage.setItem("aiConfig", JSON.stringify(newCfg));
+
+            // 同步内存态，避免本次会话内重复判定“未配置”
+            aiConfig = newCfg;
+            window.aiConfig = newCfg; // （可选）挂到全局，防止作用域问题
+
             closeApiKeyModal();
 
             if (window.apiKeyCallback) {
-                window.apiKeyCallback();
-                window.apiKeyCallback = null;
+            window.apiKeyCallback();
+            window.apiKeyCallback = null;
             }
         }
 
