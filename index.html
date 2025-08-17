@@ -1547,59 +1547,77 @@ function calculateRisk(inputFeatures, modelKey) {<br>
 
                 <div class="methodology-section">
                     <h3 id="xscoreMethodTitle">5. X_score Scoring</h3>
-                    <p id="xscoreMethodDesc">X_score is calculated based on stenosis severity (0-1) in different vascular segments, obtained directly through imaging analysis.</p>
-                    
+                    <p id="xscoreMethodDesc">
+                        X_score is calculated from stenosis severity in different vascular segments. 
+                        Values are <strong>non-negative with no upper bound (≥0)</strong> and come directly from imaging.
+                    </p>
+
                     <div class="formula-box">
-                        <div class="formula" id="xscoreFormula">X_score = Σ(Vessel Stenosis Value × Vessel Weight Coefficient)</div>
+                        <div class="formula" id="xscoreFormula">
+                        X_score = Σ(Vessel Stenosis Value × Vessel Weight Coefficient)
+                        </div>
                     </div>
-                    
+
                     <table class="scoring-table">
                         <thead>
-                            <tr>
-                                <th id="vesselSegmentHeader">Vessel Segment</th>
-                                <th id="unilateralMultHeader">Unilateral Multiplier</th>
-                                <th id="bilateralMultHeader">Bilateral Multiplier</th>
-                                <th id="calculationHeader">Calculation Formula</th>
-                            </tr>
+                        <tr>
+                            <th id="vesselSegmentHeader">Vessel Segment</th>
+                            <th id="unilateralMultHeader">Unilateral Multiplier</th>
+                            <th id="bilateralMultHeader">Bilateral Multiplier</th>
+                            <th id="calculationHeader">Calculation Formula</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Subclavian Artery</td><td>-</td><td>1</td><td>(L_SA + R_SA) × 1</td></tr>
-                            <tr><td>Common Carotid Artery (CCA)</td><td>8</td><td>12</td><td>Single: value × 8, Both: (L_CCA + R_CCA) × 12</td></tr>
-                            <tr><td>Internal Carotid Artery (ICA)</td><td>9</td><td>12</td><td>Single: value × 9, Both: (L_ICA + R_ICA) × 12</td></tr>
-                            <tr><td>Basilar Artery (BAA)</td><td>25</td><td>-</td><td>BAA × 25</td></tr>
-                            <tr><td>Vertebral Artery (VA)</td><td>19</td><td>22</td><td>Single: value × 19, Both: (L_VA + R_VA) × 22</td></tr>
-                            <tr><td>Anterior Cerebral Artery (ACA)</td><td>8</td><td>9</td><td>Single: value × 8, Both: (L_ACA + R_ACA) × 9</td></tr>
-                            <tr><td>Middle Cerebral Artery (MCA)</td><td>11</td><td>13</td><td>Single: value × 11, Both: (L_MCA + R_MCA) × 13</td></tr>
-                            <tr><td>Posterior Cerebral Artery (PCA)</td><td>33</td><td>37</td><td>Single: value × 33, Both: (L_PCA + R_PCA) × 37</td></tr>
+                        <tr><td id="vessel_subclavian">Subclavian Artery (SA)</td><td>-</td><td>1</td><td>(L_SA + R_SA) × 1</td></tr>
+                        <tr><td id="vessel_cca">Common Carotid Artery (CCA)</td><td>8</td><td>12</td><td>Single: value × 8, Both: (L_CCA + R_CCA) × 12</td></tr>
+                        <tr><td id="vessel_ica">Internal Carotid Artery (ICA)</td><td>9</td><td>12</td><td>Single: value × 9, Both: (L_ICA + R_ICA) × 12</td></tr>
+                        <tr><td id="vessel_baa">Basilar Artery (BAA)</td><td>25</td><td>-</td><td>BAA × 25</td></tr>
+                        <tr><td id="vessel_va">Vertebral Artery (VA)</td><td>19</td><td>22</td><td>Single: value × 19, Both: (L_VA + R_VA) × 22</td></tr>
+                        <tr><td id="vessel_aca">Anterior Cerebral Artery (ACA)</td><td>8</td><td>9</td><td>Single: value × 8, Both: (L_ACA + R_ACA) × 9</td></tr>
+                        <tr><td id="vessel_mca">Middle Cerebral Artery (MCA)</td><td>11</td><td>13</td><td>Single: value × 11, Both: (L_MCA + R_MCA) × 13</td></tr>
+                        <tr><td id="vessel_pca">Posterior Cerebral Artery (PCA)</td><td>33</td><td>37</td><td>Single: value × 33, Both: (L_PCA + R_PCA) × 37</td></tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="methodology-section">
-                    <h3 id="framinghamMethodTitle">6. Framingham Score Calculation</h3>
-                    <p id="framinghamMethodDesc">Risk assessment based on age, systolic blood pressure, and cardiovascular risk factors, with gender-specific scoring.</p>
-                    
-                    <div class="formula-box">
-                        <div class="formula" id="framinghamFormula">Framingham Score = Age Points + SBP Points + Risk Factor Points</div>
                     </div>
-                    
+
+                    <div class="methodology-section">
+                    <h3 id="framinghamMethodTitle">6. Framingham Score Calculation</h3>
+                    <p id="framinghamMethodDesc">
+                        Risk score based on <strong>Age</strong>, <strong>Systolic Blood Pressure (SBP)</strong> (both untreated and treated, if provided), 
+                        and <strong>cardiovascular risk factors</strong>, with gender-specific tables.
+                    </p>
+
+                    <div class="formula-box">
+                        <div class="formula" id="framinghamFormula">
+                        Framingham Score = Age Points + SBP (Untreated) Points + SBP (Treated) Points + Risk Factor Points
+                        </div>
+                    </div>
+                    <p id="framinghamSbpNote" style="margin-top:6px;opacity:.85">
+                        Note: If only one SBP is provided, only that one is scored; values beyond highest brackets are capped at the top points.
+                    </p>
+
+                    <!-- Male -->
                     <h4 id="maleScoringTitle">Male Scoring Table</h4>
                     <table class="scoring-table">
                         <thead>
-                            <tr><th id="ageYearsHeader">Age (years)</th><th id="pointsHeader1">Points</th><th id="sbpUntreatedHeader">SBP Untreated (mmHg)</th><th id="pointsHeader2">Points</th><th id="sbpTreatedHeader">SBP Treated (mmHg)</th><th id="pointsHeader3">Points</th></tr>
+                        <tr>
+                            <th id="ageYearsHeader">Age (years)</th><th id="pointsHeader1">Points</th>
+                            <th id="sbpUntreatedHeader">SBP Untreated (mmHg)</th><th id="pointsHeader2">Points</th>
+                            <th id="sbpTreatedHeader">SBP Treated (mmHg)</th><th id="pointsHeader3">Points</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr><td>54-56</td><td>0</td><td>97-105</td><td>0</td><td>97-105</td><td>0</td></tr>
-                            <tr><td>57-59</td><td>1</td><td>106-115</td><td>1</td><td>106-112</td><td>1</td></tr>
-                            <tr><td>60-62</td><td>2</td><td>116-125</td><td>2</td><td>113-117</td><td>2</td></tr>
-                            <tr><td>63-65</td><td>3</td><td>126-135</td><td>3</td><td>118-123</td><td>3</td></tr>
-                            <tr><td>66-68</td><td>4</td><td>136-145</td><td>4</td><td>124-129</td><td>4</td></tr>
-                            <tr><td>69-72</td><td>5</td><td>146-155</td><td>5</td><td>130-135</td><td>5</td></tr>
-                            <tr><td>73-75</td><td>6</td><td>156-165</td><td>6</td><td>136-142</td><td>6</td></tr>
-                            <tr><td>76-78</td><td>7</td><td>166-175</td><td>7</td><td>143-150</td><td>7</td></tr>
-                            <tr><td>79-81</td><td>8</td><td>176-185</td><td>8</td><td>151-161</td><td>8</td></tr>
-                            <tr><td>82-84</td><td>9</td><td>186-195</td><td>9</td><td>162-176</td><td>9</td></tr>
-                            <tr><td>≥85</td><td>10</td><td>196-205</td><td>10</td><td>177-205</td><td>10</td></tr>
+                        <tr><td>≤56</td><td>0</td><td>97–105</td><td>0</td><td>97–105</td><td>0</td></tr>
+                        <tr><td>57–59</td><td>1</td><td>106–115</td><td>1</td><td>106–112</td><td>1</td></tr>
+                        <tr><td>60–62</td><td>2</td><td>116–125</td><td>2</td><td>113–117</td><td>2</td></tr>
+                        <tr><td>63–65</td><td>3</td><td>126–135</td><td>3</td><td>118–123</td><td>3</td></tr>
+                        <tr><td>66–68</td><td>4</td><td>136–145</td><td>4</td><td>124–129</td><td>4</td></tr>
+                        <tr><td>69–72</td><td>5</td><td>146–155</td><td>5</td><td>130–135</td><td>5</td></tr>
+                        <tr><td>73–75</td><td>6</td><td>156–165</td><td>6</td><td>136–142</td><td>6</td></tr>
+                        <tr><td>76–78</td><td>7</td><td>166–175</td><td>7</td><td>143–150</td><td>7</td></tr>
+                        <tr><td>79–81</td><td>8</td><td>176–185</td><td>8</td><td>151–161</td><td>8</td></tr>
+                        <tr><td>82–84</td><td>9</td><td>186–195</td><td>9</td><td>162–176</td><td>9</td></tr>
+                        <tr><td>≥85</td><td>10</td><td>196–205</td><td>10</td><td>177–205</td><td>10</td></tr>
                         </tbody>
                     </table>
 
@@ -1607,48 +1625,116 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     <table class="scoring-table">
                         <thead><tr><th id="riskFactorHeader">Risk Factor</th><th id="pointsHeader4">Points</th></tr></thead>
                         <tbody>
-                            <tr><td>Diabetes</td><td>2</td></tr>
-                            <tr><td>Current Smoking</td><td>3</td></tr>
-                            <tr><td>Cardiovascular Disease</td><td>4</td></tr>
-                            <tr><td>Atrial Fibrillation</td><td>4</td></tr>
-                            <tr><td>Left Ventricular Hypertrophy</td><td>5</td></tr>
+                        <tr><td id="rf_diabetes">Diabetes</td><td>2</td></tr>
+                        <tr><td id="rf_smoking">Smoking</td><td>3</td></tr>
+                        <tr><td id="rf_cvd">Cardiovascular Disease</td><td>4</td></tr>
+                        <tr><td id="rf_af">Atrial Fibrillation</td><td>4</td></tr>
+                        <tr><td id="rf_lvh">Left Ventricular Hypertrophy</td><td>5</td></tr>
                         </tbody>
                     </table>
 
-                    <h4 id="femaleDiffTitle">Female Scoring (Key Differences)</h4>
+                    <!-- Female -->
+                    <h4 id="femaleDiffTitle">Female Scoring Table</h4>
+
                     <table class="scoring-table">
-                        <thead><tr><th id="riskFactorHeader2">Risk Factor</th><th id="femalePointsHeader">Female Points</th><th id="malePointsHeader">Male Points</th></tr></thead>
+                        <thead>
+                        <tr><th id="femaleAgeHeader">Age (years)</th><th id="femaleAgePointsHeader">Points</th></tr>
+                        </thead>
                         <tbody>
-                            <tr><td>Diabetes</td><td>3</td><td>2</td></tr>
-                            <tr><td>Cardiovascular Disease</td><td>2</td><td>4</td></tr>
-                            <tr><td>SBP ranges start from 1 point</td><td>95-106 mmHg = 1pt</td><td>97-105 mmHg = 0pt</td></tr>
+                        <tr><td>≤56</td><td>0</td></tr>
+                        <tr><td>57–59</td><td>1</td></tr>
+                        <tr><td>60–62</td><td>2</td></tr>
+                        <tr><td>63–64</td><td>3</td></tr>
+                        <tr><td>65–67</td><td>4</td></tr>
+                        <tr><td>68–70</td><td>5</td></tr>
+                        <tr><td>71–73</td><td>6</td></tr>
+                        <tr><td>74–76</td><td>7</td></tr>
+                        <tr><td>77–78</td><td>8</td></tr>
+                        <tr><td>79–81</td><td>9</td></tr>
+                        <tr><td>82–84</td><td>10</td></tr>
+                        <tr><td>≥85</td><td>10</td></tr>
                         </tbody>
                     </table>
-                </div>
 
-                <div class="methodology-section">
+                    <table class="scoring-table">
+                        <thead>
+                        <tr><th id="femaleSbpUntreatedHeader">SBP Untreated (mmHg)</th><th id="femaleSbpUntreatedPointsHeader">Points</th></tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>95–106</td><td>1</td></tr>
+                        <tr><td>107–118</td><td>2</td></tr>
+                        <tr><td>119–130</td><td>3</td></tr>
+                        <tr><td>131–143</td><td>4</td></tr>
+                        <tr><td>144–155</td><td>5</td></tr>
+                        <tr><td>156–167</td><td>6</td></tr>
+                        <tr><td>168–180</td><td>7</td></tr>
+                        <tr><td>181–192</td><td>8</td></tr>
+                        <tr><td>193–204</td><td>9</td></tr>
+                        <tr><td>205–216</td><td>10</td></tr>
+                        </tbody>
+                    </table>
+
+                    <table class="scoring-table">
+                        <thead>
+                        <tr><th id="femaleSbpTreatedHeader">SBP Treated (mmHg)</th><th id="femaleSbpTreatedPointsHeader">Points</th></tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>95–106</td><td>1</td></tr>
+                        <tr><td>103–113</td><td>2</td></tr>
+                        <tr><td>114–119</td><td>3</td></tr>
+                        <tr><td>120–125</td><td>4</td></tr>
+                        <tr><td>126–131</td><td>5</td></tr>
+                        <tr><td>132–139</td><td>6</td></tr>
+                        <tr><td>140–148</td><td>7</td></tr>
+                        <tr><td>149–160</td><td>8</td></tr>
+                        <tr><td>161–204</td><td>9</td></tr>
+                        <tr><td>205–216</td><td>10</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4 id="femaleRiskFactorsTitle">Additional Risk Factors (Female)</h4>
+                    <table class="scoring-table">
+                        <thead><tr><th id="riskFactorHeader2">Risk Factor</th><th id="femalePointsHeader">Points</th></tr></thead>
+                        <tbody>
+                        <tr><td id="rf_diabetes_f">Diabetes</td><td>3</td></tr>
+                        <tr><td id="rf_smoking_f">Smoking</td><td>3</td></tr>
+                        <tr><td id="rf_cvd_f">Cardiovascular Disease</td><td>2</td></tr>
+                        <tr><td id="rf_af_f">Atrial Fibrillation</td><td>4</td></tr>
+                        <tr><td id="rf_lvh_f">Left Ventricular Hypertrophy</td><td>5</td></tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <div class="methodology-section">
                     <h3 id="gensiniMethodTitle">7. Gensini Score System</h3>
-                    <p id="gensiniMethodDesc">Coronary artery disease severity assessment based on stenosis degree and vessel importance coefficients.</p>
-                    
+                    <p id="gensiniMethodDesc">
+                        Coronary artery disease severity assessment based on stenosis degree and vessel importance coefficients.
+                    </p>
+
                     <div class="formula-box">
                         <div class="formula" id="gensiniFormula">Gensini Score = Σ(Stenosis Points × Vessel Coefficient)</div>
                     </div>
-                    
+
                     <table class="scoring-table">
                         <thead>
-                            <tr><th id="stenosisDegreeHeader">Stenosis Degree</th><th id="pointsHeader5">Points</th><th id="vesselSegmentHeader2">Vessel Segment</th><th id="coefficientHeader">Coefficient</th></tr>
+                        <tr>
+                            <th id="stenosisDegreeHeader">Stenosis Degree</th>
+                            <th id="pointsHeader5">Points</th>
+                            <th id="vesselSegmentHeader2">Vessel Segment</th>
+                            <th id="coefficientHeader">Coefficient</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr><td>&lt;25%</td><td>1</td><td>Left Main</td><td>5.0</td></tr>
-                            <tr><td>25-49%</td><td>2</td><td>LAD Proximal</td><td>2.5</td></tr>
-                            <tr><td>50-74%</td><td>4</td><td>LAD Mid</td><td>1.5</td></tr>
-                            <tr><td>75-89%</td><td>8</td><td>LAD Distal</td><td>1.0</td></tr>
-                            <tr><td>90-98%</td><td>16</td><td>First Diagonal</td><td>1.0</td></tr>
-                            <tr><td>≥99%</td><td>32</td><td>Second Diagonal</td><td>0.5</td></tr>
-                            <tr><td>-</td><td>-</td><td>LCX Proximal</td><td>2.5</td></tr>
-                            <tr><td>-</td><td>-</td><td>LCX Distal/PDA</td><td>1.0</td></tr>
-                            <tr><td>-</td><td>-</td><td>RCA (all segments)</td><td>1.0</td></tr>
-                            <tr><td>-</td><td>-</td><td>Posterolateral</td><td>0.5</td></tr>
+                        <tr><td>&lt;25%</td><td>1</td><td id="gens_left_main">Left Main</td><td>5.0</td></tr>
+                        <tr><td>25–49%</td><td>2</td><td id="gens_lad_prox">LAD Proximal</td><td>2.5</td></tr>
+                        <tr><td>50–74%</td><td>4</td><td id="gens_lad_mid">LAD Mid</td><td>1.5</td></tr>
+                        <tr><td>75–89%</td><td>8</td><td id="gens_lad_distal">LAD Distal</td><td>1.0</td></tr>
+                        <tr><td>90–98%</td><td>16</td><td id="gens_first_diag">First Diagonal</td><td>1.0</td></tr>
+                        <tr><td>≥99%</td><td>32</td><td id="gens_second_diag">Second Diagonal</td><td>0.5</td></tr>
+                        <tr><td>-</td><td>-</td><td id="gens_lcx_prox">LCX Proximal</td><td>2.5</td></tr>
+                        <tr><td>-</td><td>-</td><td id="gens_lcx_distal_pda">LCX Distal/PDA</td><td>1.0</td></tr>
+                        <tr><td>-</td><td>-</td><td id="gens_rca_all">RCA (all segments)</td><td>1.0</td></tr>
+                        <tr><td>-</td><td>-</td><td id="gens_posterolateral">Posterolateral</td><td>0.5</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1736,83 +1822,83 @@ function calculateRisk(inputFeatures, modelKey) {<br>
             <div class="form-section">
                 <h3 id="vesselStenosisTitle">Vessel Stenosis Assessment</h3>
                 <div class="alert alert-info">
-                    <strong id="vesselInstructions">Instructions:</strong> <span id="vesselInstructionsText">Enter stenosis values (0-1) for each vessel segment. At least one vessel value is required for assessment.</span>
+                    <strong id="vesselInstructions">Instructions:</strong> <span id="vesselInstructionsText">Enter stenosis values (≥0) for each vessel segment. At least one vessel value is required for assessment.</span>
                 </div>
                 <div class="form-grid">
                     <!-- Subclavian Arteries -->
                     <div class="form-group">
-                        <label for="L_SA" id="lRALabel">Left Subclavian Artery (L_SA) Stenosis (0-1):</label>
-                        <input type="number" id="L_SA" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="L_SA" id="lRALabel">Left Subclavian Artery (L_SA) Stenosis (≥0):</label>
+                        <input type="number" id="L_SA" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="R_SA" id="rRALabel">Right Subclavian Artery (R_SA) Stenosis (0-1):</label>
-                        <input type="number" id="R_SA" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="R_SA" id="rRALabel">Right Subclavian Artery (R_SA) Stenosis (≥0):</label>
+                        <input type="number" id="R_SA" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Common Carotid Arteries -->
                     <div class="form-group">
-                        <label for="l_cca" id="lCCALabel">Left Common Carotid Artery (L_CCA) Stenosis (0-1):</label>
-                        <input type="number" id="l_cca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_cca" id="lCCALabel">Left Common Carotid Artery (L_CCA) Stenosis (≥0):</label>
+                        <input type="number" id="l_cca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_cca" id="rCCALabel">Right Common Carotid Artery (R_CCA) Stenosis (0-1):</label>
-                        <input type="number" id="r_cca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_cca" id="rCCALabel">Right Common Carotid Artery (R_CCA) Stenosis (≥0):</label>
+                        <input type="number" id="r_cca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Internal Carotid Arteries -->
                     <div class="form-group">
-                        <label for="l_ica" id="lICALabel">Left Internal Carotid Artery (L_ICA) Stenosis (0-1):</label>
-                        <input type="number" id="l_ica" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_ica" id="lICALabel">Left Internal Carotid Artery (L_ICA) Stenosis (≥0):</label>
+                        <input type="number" id="l_ica" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_ica" id="rICALabel">Right Internal Carotid Artery (R_ICA) Stenosis (0-1):</label>
-                        <input type="number" id="r_ica" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_ica" id="rICALabel">Right Internal Carotid Artery (R_ICA) Stenosis (≥0):</label>
+                        <input type="number" id="r_ica" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Basilar Artery -->
                     <div class="form-group">
-                        <label for="baa" id="baaLabel">Basilar Artery (BAA) Stenosis (0-1):</label>
-                        <input type="number" id="baa" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="baa" id="baaLabel">Basilar Artery (BAA) Stenosis (≥0):</label>
+                        <input type="number" id="baa" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Vertebral Arteries -->
                     <div class="form-group">
-                        <label for="l_va" id="lVALabel">Left Vertebral Artery (L_VA) Stenosis (0-1):</label>
-                        <input type="number" id="l_va" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_va" id="lVALabel">Left Vertebral Artery (L_VA) Stenosis (≥0):</label>
+                        <input type="number" id="l_va" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_va" id="rVALabel">Right Vertebral Artery (R_VA) Stenosis (0-1):</label>
-                        <input type="number" id="r_va" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_va" id="rVALabel">Right Vertebral Artery (R_VA) Stenosis (≥0):</label>
+                        <input type="number" id="r_va" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Anterior Cerebral Arteries -->
                     <div class="form-group">
-                        <label for="l_aca" id="lACALabel">Left Anterior Cerebral Artery (L_ACA) Stenosis (0-1):</label>
-                        <input type="number" id="l_aca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_aca" id="lACALabel">Left Anterior Cerebral Artery (L_ACA) Stenosis (≥0):</label>
+                        <input type="number" id="l_aca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_aca" id="rACALabel">Right Anterior Cerebral Artery (R_ACA) Stenosis (0-1):</label>
-                        <input type="number" id="r_aca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_aca" id="rACALabel">Right Anterior Cerebral Artery (R_ACA) Stenosis (≥0):</label>
+                        <input type="number" id="r_aca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Middle Cerebral Arteries -->
                     <div class="form-group">
-                        <label for="l_mca" id="lMCALabel">Left Middle Cerebral Artery (L_MCA) Stenosis (0-1):</label>
-                        <input type="number" id="l_mca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_mca" id="lMCALabel">Left Middle Cerebral Artery (L_MCA) Stenosis (≥0):</label>
+                        <input type="number" id="l_mca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_mca" id="rMCALabel">Right Middle Cerebral Artery (R_MCA) Stenosis (0-1):</label>
-                        <input type="number" id="r_mca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_mca" id="rMCALabel">Right Middle Cerebral Artery (R_MCA) Stenosis (≥0):</label>
+                        <input type="number" id="r_mca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
 
                     <!-- Posterior Cerebral Arteries -->
                     <div class="form-group">
-                        <label for="l_pca" id="lPCALabel">Left Posterior Cerebral Artery (L_PCA) Stenosis (0-1):</label>
-                        <input type="number" id="l_pca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_pca" id="lPCALabel">Left Posterior Cerebral Artery (L_PCA) Stenosis (≥0):</label>
+                        <input type="number" id="l_pca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_pca" id="rPCALabel">Right Posterior Cerebral Artery (R_PCA) Stenosis (0-1):</label>
-                        <input type="number" id="r_pca" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_pca" id="rPCALabel">Right Posterior Cerebral Artery (R_PCA) Stenosis (≥0):</label>
+                        <input type="number" id="r_pca" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                 </div>
             </div>
@@ -1867,68 +1953,68 @@ function calculateRisk(inputFeatures, modelKey) {<br>
             <div class="form-section">
                 <h3 id="vesselStenosisTitle2">Vessel Stenosis Assessment</h3>
                 <div class="alert alert-info">
-                    <strong id="vesselInstructions2">Instructions:</strong> <span id="vesselInstructionsText2">Enter stenosis values (0-1) for each vessel segment. At least one vessel value is required.</span>
+                    <strong id="vesselInstructions2">Instructions:</strong> <span id="vesselInstructionsText2">Enter stenosis values (≥0) for each vessel segment. At least one vessel value is required.</span>
                 </div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="L_SA_2" id="lRALabel2">Left Subclavian Artery (L_SA) Stenosis (0-1):</label>
-                        <input type="number" id="L_SA_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="L_SA_2" id="lRALabel2">Left Subclavian Artery (L_SA) Stenosis (≥0):</label>
+                        <input type="number" id="L_SA_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="R_SA_2" id="rRALabel2">Right Subclavian Artery (R_SA) Stenosis (0-1):</label>
-                        <input type="number" id="R_SA_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="R_SA_2" id="rRALabel2">Right Subclavian Artery (R_SA) Stenosis (≥0):</label>
+                        <input type="number" id="R_SA_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="l_cca_2" id="lCCALabel2">Left Common Carotid Artery (L_CCA) Stenosis (0-1):</label>
-                        <input type="number" id="l_cca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_cca_2" id="lCCALabel2">Left Common Carotid Artery (L_CCA) Stenosis (≥0):</label>
+                        <input type="number" id="l_cca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_cca_2" id="rCCALabel2">Right Common Carotid Artery (R_CCA) Stenosis (0-1):</label>
-                        <input type="number" id="r_cca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_cca_2" id="rCCALabel2">Right Common Carotid Artery (R_CCA) Stenosis (≥0):</label>
+                        <input type="number" id="r_cca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="l_ica_2" id="lICALabel2">Left Internal Carotid Artery (L_ICA) Stenosis (0-1):</label>
-                        <input type="number" id="l_ica_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_ica_2" id="lICALabel2">Left Internal Carotid Artery (L_ICA) Stenosis (≥0):</label>
+                        <input type="number" id="l_ica_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_ica_2" id="rICALabel2">Right Internal Carotid Artery (R_ICA) Stenosis (0-1):</label>
-                        <input type="number" id="r_ica_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_ica_2" id="rICALabel2">Right Internal Carotid Artery (R_ICA) Stenosis (≥0):</label>
+                        <input type="number" id="r_ica_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="baa_2" id="baaLabel2">Basilar Artery (BAA) Stenosis (0-1):</label>
-                        <input type="number" id="baa_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="baa_2" id="baaLabel2">Basilar Artery (BAA) Stenosis (≥0):</label>
+                        <input type="number" id="baa_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="l_va_2" id="lVALabel2">Left Vertebral Artery (L_VA) Stenosis (0-1):</label>
-                        <input type="number" id="l_va_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_va_2" id="lVALabel2">Left Vertebral Artery (L_VA) Stenosis (≥0):</label>
+                        <input type="number" id="l_va_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_va_2" id="rVALabel2">Right Vertebral Artery (R_VA) Stenosis (0-1):</label>
-                        <input type="number" id="r_va_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_va_2" id="rVALabel2">Right Vertebral Artery (R_VA) Stenosis (≥0):</label>
+                        <input type="number" id="r_va_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="l_aca_2" id="lACALabel2">Left Anterior Cerebral Artery (L_ACA) Stenosis (0-1):</label>
-                        <input type="number" id="l_aca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_aca_2" id="lACALabel2">Left Anterior Cerebral Artery (L_ACA) Stenosis (≥0):</label>
+                        <input type="number" id="l_aca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_aca_2" id="rACALabel2">Right Anterior Cerebral Artery (R_ACA) Stenosis (0-1):</label>
-                        <input type="number" id="r_aca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_aca_2" id="rACALabel2">Right Anterior Cerebral Artery (R_ACA) Stenosis (≥0):</label>
+                        <input type="number" id="r_aca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="l_mca_2" id="lMCALabel2">Left Middle Cerebral Artery (L_MCA) Stenosis (0-1):</label>
-                        <input type="number" id="l_mca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_mca_2" id="lMCALabel2">Left Middle Cerebral Artery (L_MCA) Stenosis (≥0):</label>
+                        <input type="number" id="l_mca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_mca_2" id="rMCALabel2">Right Middle Cerebral Artery (R_MCA) Stenosis (0-1):</label>
-                        <input type="number" id="r_mca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_mca_2" id="rMCALabel2">Right Middle Cerebral Artery (R_MCA) Stenosis (≥0):</label>
+                        <input type="number" id="r_mca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="l_pca_2" id="lPCALabel2">Left Posterior Cerebral Artery (L_PCA) Stenosis (0-1):</label>
-                        <input type="number" id="l_pca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="l_pca_2" id="lPCALabel2">Left Posterior Cerebral Artery (L_PCA) Stenosis (≥0):</label>
+                        <input type="number" id="l_pca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                     <div class="form-group">
-                        <label for="r_pca_2" id="rPCALabel2">Right Posterior Cerebral Artery (R_PCA) Stenosis (0-1):</label>
-                        <input type="number" id="r_pca_2" step="0.01" min="0" max="1" placeholder="0.00-1.00">
+                        <label for="r_pca_2" id="rPCALabel2">Right Posterior Cerebral Artery (R_PCA) Stenosis (≥0):</label>
+                        <input type="number" id="r_pca_2" step="0.01" min="0" placeholder="≥0.00">
                     </div>
                 </div>
             </div>
@@ -1971,7 +2057,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="smoking_2">
-                            <label for="smoking_2" id="smokingLabel2">Current Smoking</label>
+                            <label for="smoking_2" id="smokingLabel2">Smoking</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="cvd_2">
@@ -2077,7 +2163,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="smoking_3">
-                            <label for="smoking_3" id="smokingLabel3">Current Smoking</label>
+                            <label for="smoking_3" id="smokingLabel3">Smoking</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="cvd_3">
@@ -2246,7 +2332,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="smoking_4">
-                            <label for="smoking_4" id="smokingLabel4">Current Smoking</label>
+                            <label for="smoking_4" id="smokingLabel4">Smoking</label>
                         </div>
                         <div class="checkbox-item">
                             <input type="checkbox" id="cvd_4">
@@ -2694,10 +2780,10 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 resetModel4: "Reset",
                 vesselStenosisTitle: "Vessel Stenosis Assessment",
                 vesselInstructions: "Instructions:",
-                vesselInstructionsText: "Enter stenosis values (0-1) for each vessel segment. At least one vessel value is required for assessment.",
+                vesselInstructionsText: "Enter stenosis values (≥0) for each vessel segment. At least one vessel value is required for assessment.",
                 vesselStenosisTitle2: "Vessel Stenosis Assessment",
                 vesselInstructions2: "Instructions:",
-                vesselInstructionsText2: "Enter stenosis values (0-1) for each vessel segment. At least one vessel value is required.",
+                vesselInstructionsText2: "Enter stenosis values (≥0) for each vessel segment. At least one vessel value is required.",
                 framinghamTitle2: "Framingham Risk Assessment",
                 framinghamRequired2: "Required:",
                 framinghamRequiredText2: "All Framingham fields are mandatory for accurate risk assessment.",
@@ -2768,9 +2854,9 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 diabetesLabel2: "Diabetes",
                 diabetesLabel3: "Diabetes",
                 diabetesLabel4: "Diabetes",
-                smokingLabel2: "Current Smoking",
-                smokingLabel3: "Current Smoking",
-                smokingLabel4: "Current Smoking",
+                smokingLabel2: "Smoking",
+                smokingLabel3: "Smoking",
+                smokingLabel4: "Smoking",
                 cvdLabel2: "Cardiovascular Disease",
                 cvdLabel3: "Cardiovascular Disease",
                 cvdLabel4: "Cardiovascular Disease",
@@ -2867,16 +2953,31 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 riskLevelHeader: "Risk Level",
                 probabilityRangeHeader: "Probability Range",
                 clinicalActionHeader: "Clinical Action",
+                // X_score
                 xscoreMethodTitle: "5. X_score Scoring",
-                xscoreMethodDesc: "X_score is calculated based on stenosis severity (0-1) in different vascular segments, obtained directly through imaging analysis.",
+                xscoreMethodDesc: "X_score is calculated from stenosis severity in different vascular segments. Values are non-negative with no upper bound (≥0) and come directly from imaging.",
                 xscoreFormula: "X_score = Σ(Vessel Stenosis Value × Vessel Weight Coefficient)",
+
                 vesselSegmentHeader: "Vessel Segment",
                 unilateralMultHeader: "Unilateral Multiplier",
                 bilateralMultHeader: "Bilateral Multiplier",
                 calculationHeader: "Calculation Formula",
+
+                vessel_subclavian: "Subclavian Artery (SA)",
+                vessel_cca: "Common Carotid Artery (CCA)",
+                vessel_ica: "Internal Carotid Artery (ICA)",
+                vessel_baa: "Basilar Artery (BAA)",
+                vessel_va: "Vertebral Artery (VA)",
+                vessel_aca: "Anterior Cerebral Artery (ACA)",
+                vessel_mca: "Middle Cerebral Artery (MCA)",
+                vessel_pca: "Posterior Cerebral Artery (PCA)",
+
+                // Framingham
                 framinghamMethodTitle: "6. Framingham Score Calculation",
-                framinghamMethodDesc: "Risk assessment based on age, systolic blood pressure, and cardiovascular risk factors, with gender-specific scoring.",
-                framinghamFormula: "Framingham Score = Age Points + SBP Points + Risk Factor Points",
+                framinghamMethodDesc: "Risk score based on Age, Systolic Blood Pressure (SBP) (both untreated and treated, if provided), and cardiovascular risk factors, with gender-specific tables.",
+                framinghamFormula: "Framingham Score = Age Points + SBP (Untreated) Points + SBP (Treated) Points + Risk Factor Points",
+                framinghamSbpNote: "Note: If only one SBP is provided, only that one is scored; values beyond highest brackets are capped at the top points.",
+
                 maleScoringTitle: "Male Scoring Table",
                 ageYearsHeader: "Age (years)",
                 pointsHeader1: "Points",
@@ -2884,20 +2985,53 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 pointsHeader2: "Points",
                 sbpTreatedHeader: "SBP Treated (mmHg)",
                 pointsHeader3: "Points",
+
                 riskFactorsMaleTitle: "Additional Risk Factors (Male)",
                 riskFactorHeader: "Risk Factor",
                 pointsHeader4: "Points",
-                femaleDiffTitle: "Female Scoring (Key Differences)",
+                rf_diabetes: "Diabetes",
+                rf_smoking: "Smoking",
+                rf_cvd: "Cardiovascular Disease",
+                rf_af: "Atrial Fibrillation",
+                rf_lvh: "Left Ventricular Hypertrophy",
+
+                femaleDiffTitle: "Female Scoring Table",
+                femaleAgeHeader: "Age (years)",
+                femaleAgePointsHeader: "Points",
+                femaleSbpUntreatedHeader: "SBP Untreated (mmHg)",
+                femaleSbpUntreatedPointsHeader: "Points",
+                femaleSbpTreatedHeader: "SBP Treated (mmHg)",
+                femaleSbpTreatedPointsHeader: "Points",
+
+                femaleRiskFactorsTitle: "Additional Risk Factors (Female)",
                 riskFactorHeader2: "Risk Factor",
-                femalePointsHeader: "Female Points",
-                malePointsHeader: "Male Points",
+                femalePointsHeader: "Points",
+                rf_diabetes_f: "Diabetes",
+                rf_smoking_f: "Smoking",
+                rf_cvd_f: "Cardiovascular Disease",
+                rf_af_f: "Atrial Fibrillation",
+                rf_lvh_f: "Left Ventricular Hypertrophy",
+
+                // Gensini
                 gensiniMethodTitle: "7. Gensini Score System",
                 gensiniMethodDesc: "Coronary artery disease severity assessment based on stenosis degree and vessel importance coefficients.",
                 gensiniFormula: "Gensini Score = Σ(Stenosis Points × Vessel Coefficient)",
+
                 stenosisDegreeHeader: "Stenosis Degree",
                 pointsHeader5: "Points",
                 vesselSegmentHeader2: "Vessel Segment",
                 coefficientHeader: "Coefficient",
+
+                gens_left_main: "Left Main",
+                gens_lad_prox: "LAD Proximal",
+                gens_lad_mid: "LAD Mid",
+                gens_lad_distal: "LAD Distal",
+                gens_first_diag: "First Diagonal",
+                gens_second_diag: "Second Diagonal",
+                gens_lcx_prox: "LCX Proximal",
+                gens_lcx_distal_pda: "LCX Distal/PDA",
+                gens_rca_all: "RCA (all segments)",
+                gens_posterolateral: "Posterolateral",
                 // Footer
                 footerTitle: "About & Contact",
                 footerText1: "Author: DJ",
@@ -2957,10 +3091,10 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 resetModel4: "重置",
                 vesselStenosisTitle: "血管狭窄评估",
                 vesselInstructions: "说明：",
-                vesselInstructionsText: "输入每个血管段的狭窄值（0-1）。评估至少需要一个血管值。",
+                vesselInstructionsText: "输入每个血管段的狭窄值（≥0）。评估至少需要一个血管值。",
                 vesselStenosisTitle2: "血管狭窄评估",
                 vesselInstructions2: "说明：",
-                vesselInstructionsText2: "输入每个血管段的狭窄值（0-1）。至少需要一个血管值。",
+                vesselInstructionsText2: "输入每个血管段的狭窄值（≥0）。至少需要一个血管值。",
                 framinghamTitle2: "Framingham风险评估",
                 framinghamRequired2: "必填：",
                 framinghamRequiredText2: "所有Framingham字段对于准确的风险评估都是必需的。",
@@ -3130,37 +3264,85 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 riskLevelHeader: "风险等级",
                 probabilityRangeHeader: "概率范围",
                 clinicalActionHeader: "临床行动",
-                xscoreMethodTitle: "5. X_score赋分",
-                xscoreMethodDesc: "X_score基于不同血管段的狭窄严重程度（0-1）计算，可通过影像分析直接获得。",
-                xscoreFormula: "X_score = Σ(血管狭窄值 × 血管权重系数)",
-                vesselSegmentHeader: "血管段",
-                unilateralMultHeader: "单侧倍数",
-                bilateralMultHeader: "双侧倍数",
+                // X_score
+                xscoreMethodTitle: "5. X_score 赋分",
+                xscoreMethodDesc: "X_score 基于不同血管分段的狭窄严重程度进行计算，数值为非负（≥0），直接来源于影像测量。",
+                xscoreFormula: "X_score = Σ（血管狭窄值 × 血管权重系数）",
+
+                vesselSegmentHeader: "血管分段",
+                unilateralMultHeader: "单侧权重",
+                bilateralMultHeader: "双侧权重",
                 calculationHeader: "计算公式",
-                framinghamMethodTitle: "6. Framingham评分计算",
-                framinghamMethodDesc: "基于年龄、收缩压和心血管危险因素的风险评估，采用性别特异性评分。",
-                framinghamFormula: "Framingham评分 = 年龄分数 + 收缩压分数 + 危险因素分数",
-                maleScoringTitle: "男性评分表",
+
+                vessel_subclavian: "锁骨下动脉（SA）",
+                vessel_cca: "颈总动脉（CCA）",
+                vessel_ica: "颈内动脉（ICA）",
+                vessel_baa: "基底动脉（BAA）",
+                vessel_va: "椎动脉（VA）",
+                vessel_aca: "前脑动脉（ACA）",
+                vessel_mca: "中脑动脉（MCA）",
+                vessel_pca: "后脑动脉（PCA）",
+
+                // Framingham
+                framinghamMethodTitle: "6. Framingham 评分计算",
+                framinghamMethodDesc: "基于年龄、收缩压（如提供则分别对“未经治疗”和“经治疗”SBP 计分）及心血管危险因素的性别特异赋分。",
+                framinghamFormula: "Framingham 总分 = 年龄分 + 收缩压（未治）分 + 收缩压（已治）分 + 危险因素分",
+                framinghamSbpNote: "说明：仅提供一个 SBP 时仅计该项；超出最高分档按最高分封顶。",
+
+                maleScoringTitle: "男性赋分表",
                 ageYearsHeader: "年龄（岁）",
-                pointsHeader1: "分数",
-                sbpUntreatedHeader: "未治疗收缩压（mmHg）",
-                pointsHeader2: "分数",
-                sbpTreatedHeader: "治疗后收缩压（mmHg）",
-                pointsHeader3: "分数",
-                riskFactorsMaleTitle: "额外危险因素（男性）",
+                pointsHeader1: "分值",
+                sbpUntreatedHeader: "收缩压 未经治疗（mmHg）",
+                pointsHeader2: "分值",
+                sbpTreatedHeader: "收缩压 经过治疗（mmHg）",
+                pointsHeader3: "分值",
+
+                riskFactorsMaleTitle: "其他危险因素（男性）",
                 riskFactorHeader: "危险因素",
-                pointsHeader4: "分数",
-                femaleDiffTitle: "女性评分（主要差异）",
+                pointsHeader4: "分值",
+                rf_diabetes: "糖尿病",
+                rf_smoking: "吸烟",
+                rf_cvd: "心血管疾病",
+                rf_af: "心房颤动",
+                rf_lvh: "左心室肥大",
+
+                femaleDiffTitle: "女性赋分表",
+                femaleAgeHeader: "年龄（岁）",
+                femaleAgePointsHeader: "分值",
+                femaleSbpUntreatedHeader: "收缩压 未经治疗（mmHg）",
+                femaleSbpUntreatedPointsHeader: "分值",
+                femaleSbpTreatedHeader: "收缩压 经过治疗（mmHg）",
+                femaleSbpTreatedPointsHeader: "分值",
+
+                femaleRiskFactorsTitle: "其他危险因素（女性）",
                 riskFactorHeader2: "危险因素",
-                femalePointsHeader: "女性分数",
-                malePointsHeader: "男性分数",
-                gensiniMethodTitle: "7. Gensini评分系统",
-                gensiniMethodDesc: "基于狭窄程度和血管重要性系数的冠状动脉疾病严重程度评估。",
-                gensiniFormula: "Gensini评分 = Σ（狭窄分数 × 血管系数）",
+                femalePointsHeader: "分值",
+                rf_diabetes_f: "糖尿病",
+                rf_smoking_f: "吸烟",
+                rf_cvd_f: "心血管疾病",
+                rf_af_f: "心房颤动",
+                rf_lvh_f: "左心室肥大",
+
+                // Gensini
+                gensiniMethodTitle: "7. Gensini 评分系统",
+                gensiniMethodDesc: "基于狭窄程度与血管重要性系数评估冠状动脉病变严重度。",
+                gensiniFormula: "Gensini 评分 = Σ（狭窄积分 × 血管系数）",
+
                 stenosisDegreeHeader: "狭窄程度",
-                pointsHeader5: "分数",
-                vesselSegmentHeader2: "血管段",
+                pointsHeader5: "积分",
+                vesselSegmentHeader2: "血管分段",
                 coefficientHeader: "系数",
+
+                gens_left_main: "左主干",
+                gens_lad_prox: "前降支 近段",
+                gens_lad_mid: "前降支 中段",
+                gens_lad_distal: "前降支 远段",
+                gens_first_diag: "第一对角支",
+                gens_second_diag: "第二对角支",
+                gens_lcx_prox: "回旋支 近段",
+                gens_lcx_distal_pda: "回旋支 远段/后降支",
+                gens_rca_all: "右冠（全段）",
+                gens_posterolateral: "后外侧支",
                 // Footer
                 footerTitle: "关于与联系",
                 footerText1: "开发者：DJ",
@@ -3482,114 +3664,161 @@ function calculateRisk(inputFeatures, modelKey) {<br>
             return parseFloat(xScore.toFixed(3));
         }
 
-        function calculateFraminghamScore(data) {
-            let score = 0;
-            const age = parseInt(data.age);
-            const gender = data.gender;
-            const sbpUntreated = parseInt(data.sbp_untreated) || 0;
-            const sbpTreated = parseInt(data.sbp_treated) || 0;
-            
-            let sbp, treated;
-            if (sbpTreated > 0) {
-                sbp = sbpTreated;
-                treated = true;
-            } else {
-                sbp = sbpUntreated;
-                treated = false;
+        /*****  Framingham Stroke Points (表驱动实现)  *****/
+
+        // 1) 年龄分档（含“≥85 记 10 分”）；<54 统一按 0 分处理
+        const FRS_AGE = {
+            male: [
+                {min:54, max:56, pts:0},
+                {min:57, max:59, pts:1},
+                {min:60, max:62, pts:2},
+                {min:63, max:65, pts:3},
+                {min:66, max:68, pts:4},
+                {min:69, max:72, pts:5},
+                {min:73, max:75, pts:6},
+                {min:76, max:78, pts:7},
+                {min:79, max:81, pts:8},
+                {min:82, max:84, pts:9},
+                {min:85, max:Infinity, pts:10},
+            ],
+            female: [
+                {min:54, max:56, pts:0},
+                {min:57, max:59, pts:1},
+                {min:60, max:62, pts:2},
+                {min:63, max:64, pts:3},
+                {min:65, max:67, pts:4},
+                {min:68, max:70, pts:5},
+                {min:71, max:73, pts:6},
+                {min:74, max:76, pts:7},
+                {min:77, max:78, pts:8},
+                {min:79, max:81, pts:9},
+                {min:82, max:84, pts:10},
+                {min:85, max:Infinity, pts:10},
+            ]
+            };
+
+            // 2) SBP 分档（男/女 & 未治/已治）；最高档封顶（>最大上限仍记该档分）
+            const FRS_SBP = {
+            male: {
+                untreated: [
+                {min:97,  max:105, pts:0},
+                {min:106, max:115, pts:1},
+                {min:116, max:125, pts:2},
+                {min:126, max:135, pts:3},
+                {min:136, max:145, pts:4},
+                {min:146, max:155, pts:5},
+                {min:156, max:165, pts:6},
+                {min:166, max:175, pts:7},
+                {min:176, max:185, pts:8},
+                {min:186, max:195, pts:9},
+                {min:196, max:205, pts:10},
+                {min:206, max:Infinity, pts:10},
+                ],
+                treated: [
+                {min:97,  max:105, pts:0},
+                {min:106, max:112, pts:1},
+                {min:113, max:117, pts:2},
+                {min:118, max:123, pts:3},
+                {min:124, max:129, pts:4},
+                {min:130, max:135, pts:5},
+                {min:136, max:142, pts:6},
+                {min:143, max:150, pts:7},
+                {min:151, max:161, pts:8},
+                {min:162, max:176, pts:9},
+                {min:177, max:205, pts:10},
+                {min:206, max:Infinity, pts:10},
+                ]
+            },
+            female: {
+                untreated: [
+                // 你指定“女性 SBP 无 0 分，从 1 分开始”
+                {min:95,  max:106, pts:1},
+                {min:107, max:118, pts:2},
+                {min:119, max:130, pts:3},
+                {min:131, max:143, pts:4},
+                {min:144, max:155, pts:5},
+                {min:156, max:167, pts:6},
+                {min:168, max:180, pts:7},
+                {min:181, max:192, pts:8},
+                {min:193, max:204, pts:9},
+                {min:205, max:216, pts:10},
+                {min:217, max:Infinity, pts:10},
+                ],
+                treated: [
+                {min:95,  max:106, pts:1},
+                {min:103, max:113, pts:2},
+                {min:114, max:119, pts:3},
+                {min:120, max:125, pts:4},
+                {min:126, max:131, pts:5},
+                {min:132, max:139, pts:6},
+                {min:140, max:148, pts:7},
+                {min:149, max:160, pts:8},
+                {min:161, max:204, pts:9},
+                {min:205, max:216, pts:10}, // 你文案里“105–216”应为“205–216”
+                {min:217, max:Infinity, pts:10},
+                ]
+            }
+            };
+
+            // 3) 危险因素分值（按性别）
+            const FRS_RISK = {
+            male:   { diabetes:2, smoking:3, cvd:4, af:4, lvh:5 },
+            female: { diabetes:3, smoking:3, cvd:2, af:4, lvh:5 }
+            };
+
+            // —— 小工具 —— //
+            const toNum = (x) => { const v = Number(x); return Number.isFinite(v) ? v : 0; };
+            const asBool = (x) => x === true || x === 1 || x === '1' || x === 'true';
+
+            function scoreFromRanges(value, ranges){
+            for (const r of ranges){
+                if (value >= r.min && value <= r.max) return r.pts;
+            }
+            return 0; // 不在任何分档 → 0 分
             }
 
-            if (gender === 'male') {
-                if (age >= 85) score += 10;
-                else if (age >= 82) score += 9;
-                else if (age >= 79) score += 8;
-                else if (age >= 76) score += 7;
-                else if (age >= 73) score += 6;
-                else if (age >= 69) score += 5;
-                else if (age >= 66) score += 4;
-                else if (age >= 63) score += 3;
-                else if (age >= 60) score += 2;
-                else if (age >= 57) score += 1;
-            } else {
-                if (age >= 85) score += 10;
-                else if (age >= 82) score += 9;
-                else if (age >= 79) score += 8;
-                else if (age >= 77) score += 7;
-                else if (age >= 74) score += 6;
-                else if (age >= 71) score += 5;
-                else if (age >= 68) score += 4;
-                else if (age >= 65) score += 3;
-                else if (age >= 60) score += 2;
-                else if (age >= 57) score += 1;
+            function scoreAge(gender, age){
+            const g = (gender||'').toLowerCase() === 'male' ? 'male' : 'female';
+            const a = toNum(age);
+            if (a < 54) return 0;                 // 你要求：小于 54 岁也记 0 分
+            return scoreFromRanges(a, FRS_AGE[g]);
             }
 
-            if (gender === 'male') {
-                if (treated) {
-                    if (sbp >= 177) score += 10;
-                    else if (sbp >= 162) score += 9;
-                    else if (sbp >= 151) score += 8;
-                    else if (sbp >= 143) score += 7;
-                    else if (sbp >= 136) score += 6;
-                    else if (sbp >= 130) score += 5;
-                    else if (sbp >= 124) score += 4;
-                    else if (sbp >= 118) score += 3;
-                    else if (sbp >= 113) score += 2;
-                    else if (sbp >= 106) score += 1;
-                } else {
-                    if (sbp >= 196) score += 10;
-                    else if (sbp >= 186) score += 9;
-                    else if (sbp >= 176) score += 8;
-                    else if (sbp >= 166) score += 7;
-                    else if (sbp >= 156) score += 6;
-                    else if (sbp >= 146) score += 5;
-                    else if (sbp >= 136) score += 4;
-                    else if (sbp >= 126) score += 3;
-                    else if (sbp >= 116) score += 2;
-                    else if (sbp >= 106) score += 1;
-                }
-            } else {
-                if (treated) {
-                    if (sbp >= 205) score += 10;
-                    else if (sbp >= 161) score += 9;
-                    else if (sbp >= 149) score += 8;
-                    else if (sbp >= 140) score += 7;
-                    else if (sbp >= 132) score += 6;
-                    else if (sbp >= 126) score += 5;
-                    else if (sbp >= 120) score += 4;
-                    else if (sbp >= 114) score += 3;
-                    else if (sbp >= 103) score += 2;
-                    else if (sbp >= 95) score += 1;
-                } else {
-                    if (sbp >= 205) score += 10;
-                    else if (sbp >= 193) score += 9;
-                    else if (sbp >= 181) score += 8;
-                    else if (sbp >= 168) score += 7;
-                    else if (sbp >= 156) score += 6;
-                    else if (sbp >= 144) score += 5;
-                    else if (sbp >= 131) score += 4;
-                    else if (sbp >= 119) score += 3;
-                    else if (sbp >= 107) score += 2;
-                    else if (sbp >= 95) score += 1;
-                }
+            function scoreSBP(gender, treated, sbp){
+            const g = (gender||'').toLowerCase() === 'male' ? 'male' : 'female';
+            const key = treated ? 'treated' : 'untreated';
+            const s = toNum(sbp);
+            return scoreFromRanges(s, FRS_SBP[g][key]);
             }
 
-            if (data.diabetes) {
-                score += gender === 'male' ? 2 : 3;
-            }
-            if (data.smoking) {
-                score += 3;
-            }
-            if (data.cvd) {
-                score += gender === 'male' ? 4 : 2;
-            }
-            if (data.af) {
-                score += 4;
-            }
-            if (data.lvh) {
-                score += 5;
-            }
+            /** 入口：Framingham 总分 = Sage + SSBP + Srisk_factors
+             *  注意：SSBP = 未治得分 + 已治得分（若两者都填）
+             */
+            function calculateFraminghamScore(data){
+            const gender = (data.gender||'').toLowerCase() === 'male' ? 'male' : 'female';
 
-            return score;
+            // 1) 年龄分
+            const agePts = scoreAge(gender, data.age);
+
+            // 2) SBP 分（两个都填则相加；只填一个就只记一个）
+            const sbpUntreated = toNum(data.sbp_untreated);
+            const sbpTreated   = toNum(data.sbp_treated);
+            const sbpPts =
+                (sbpUntreated > 0 ? scoreSBP(gender, false, sbpUntreated) : 0) +
+                (sbpTreated   > 0 ? scoreSBP(gender, true,  sbpTreated)   : 0);
+
+            // 3) 危险因素分
+            const rf = FRS_RISK[gender];
+            const riskPts =
+                (asBool(data.diabetes) ? rf.diabetes : 0) +
+                (asBool(data.smoking)  ? rf.smoking  : 0) +
+                (asBool(data.cvd)      ? rf.cvd      : 0) +
+                (asBool(data.af)       ? rf.af       : 0) +
+                (asBool(data.lvh)      ? rf.lvh      : 0);
+
+            return agePts + sbpPts + riskPts;
         }
+
 
         function calculateGensiniScore(data) {
             let score = 0;
@@ -4364,7 +4593,7 @@ Framingham 卒中评分指标赋分原理
 男性赋分表
 年龄（岁）
 分值	年龄范围
-0	54–56
+0	≤56
 1	57–59
 2	60–62
 3	63–65
@@ -4414,7 +4643,7 @@ ________________________________________
 女性赋分表
 年龄（岁）
 分值	年龄范围
-0	54–56
+0	≤56
 1	57–59
 2	60–62
 3	63–64
