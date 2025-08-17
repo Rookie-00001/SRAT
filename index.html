@@ -1381,7 +1381,7 @@
                                 <td><strong>Model 1 (X)</strong></td>
                                 <td>X_score</td>
                                 <td>591</td>
-                                <td>Minkowski (p=2.0)</td>
+                                <td>Minkowski (p=1.0)</td>
                                 <td>75.8%</td>
                             </tr>
                             <tr>
@@ -1395,7 +1395,7 @@
                                 <td><strong>Model 3 (F+G)</strong></td>
                                 <td>Framingham + Gensini</td>
                                 <td>591</td>
-                                <td>Minkowski (p=1.5)</td>
+                                <td>Minkowski (p=2.5)</td>
                                 <td>75.8%</td>
                             </tr>
                             <tr>
@@ -1419,16 +1419,17 @@
                             <tr><th id="parameterHeader">Parameter</th><th id="valueHeader">Value</th><th id="descriptionHeader">Description</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>k</strong></td><td>19</td><td>Number of nearest neighbors</td></tr>
-                            <tr><td><strong>Distance</strong></td><td>2.0</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>k</strong></td><td>23</td><td>Number of nearest neighbors</td></tr>
+                            <tr><td><strong>Distance (p)</strong></td><td>1.0</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>Kernel</strong></td><td>Rectangular</td><td>Adaptive bandwidth h = d<sub>k</sub></td></tr>
                             <tr><td><strong>Features</strong></td><td>X_score</td><td>Input feature dimensions</td></tr>
                             <tr><td><strong>Scaling Center</strong></td><td>33.0968</td><td>X_score standardization mean</td></tr>
                             <tr><td><strong>Scaling Scale</strong></td><td>46.7473</td><td>X_score standardization std</td></tr>
                             <tr><td><strong>Class Weight (Pos)</strong></td><td>0.6596</td><td>Positive class weight</td></tr>
                             <tr><td><strong>Class Weight (Neg)</strong></td><td>2.0664</td><td>Negative class weight</td></tr>
                             <tr><td><strong>Feature Weight</strong></td><td>1.0</td><td>X_score feature importance</td></tr>
-                            <tr><td><strong>Calibration α</strong></td><td>-0.5375</td><td>Platt calibration parameter</td></tr>
-                            <tr><td><strong>Calibration β</strong></td><td>3.201</td><td>Platt calibration parameter</td></tr>
+                            <tr><td><strong>Calibration α</strong></td><td>-1.0445</td><td>Platt calibration parameter</td></tr>
+                            <tr><td><strong>Calibration β</strong></td><td>4.6656</td><td>Platt calibration parameter</td></tr>
                         </tbody>
                     </table>
 
@@ -1438,15 +1439,16 @@
                             <tr><th id="parameterHeader2">Parameter</th><th id="valueHeader2">Value</th><th id="descriptionHeader2">Description</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>k</strong></td><td>19</td><td>Number of nearest neighbors</td></tr>
-                            <tr><td><strong>Distance</strong></td><td>2.5</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>k</strong></td><td>23</td><td>Number of nearest neighbors</td></tr>
+                            <tr><td><strong>Distance (p)</strong></td><td>2.5</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>Kernel</strong></td><td>Epanechnikov</td><td>Adaptive bandwidth h = d<sub>k</sub></td></tr>
                             <tr><td><strong>Features</strong></td><td>X_score, Framingham_Score</td><td>Input feature dimensions</td></tr>
                             <tr><td><strong>X_score Center/Scale</strong></td><td>33.0968 / 46.7473</td><td>X_score standardization</td></tr>
                             <tr><td><strong>Framingham Center/Scale</strong></td><td>18.9543 / 6.335</td><td>Framingham standardization</td></tr>
                             <tr><td><strong>Class Weight (Pos/Neg)</strong></td><td>0.6596 / 2.0664</td><td>Class balancing weights</td></tr>
-                            <tr><td><strong>X_score Weight</strong></td><td>0.8002</td><td>X_score feature importance</td></tr>
-                            <tr><td><strong>Framingham Weight</strong></td><td>0.1998</td><td>Framingham feature importance</td></tr>
-                            <tr><td><strong>Calibration α/β</strong></td><td>-0.7712 / 3.7228</td><td>Platt calibration parameters</td></tr>
+                            <tr><td><strong>X_score Weight</strong></td><td>0.9002</td><td>X_score feature importance</td></tr>
+                            <tr><td><strong>Framingham Weight</strong></td><td>0.0998</td><td>Framingham feature importance</td></tr>
+                            <tr><td><strong>Calibration α/β</strong></td><td>-1.1161 / 4.7379</td><td>Platt calibration parameters</td></tr>
                         </tbody>
                     </table>
 
@@ -1456,15 +1458,16 @@
                             <tr><th id="parameterHeader3">Parameter</th><th id="valueHeader3">Value</th><th id="descriptionHeader3">Description</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>k</strong></td><td>19</td><td>Number of nearest neighbors</td></tr>
-                            <tr><td><strong>Distance</strong></td><td>1.5</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>k</strong></td><td>23</td><td>Number of nearest neighbors</td></tr>
+                            <tr><td><strong>Distance (p)</strong></td><td>2.5</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>Kernel</strong></td><td>Rectangular</td><td>Adaptive bandwidth h = d<sub>k</sub></td></tr>
                             <tr><td><strong>Features</strong></td><td>Framingham_Score, Gensini_score</td><td>Input feature dimensions</td></tr>
                             <tr><td><strong>Framingham Center/Scale</strong></td><td>18.9543 / 6.335</td><td>Framingham standardization</td></tr>
                             <tr><td><strong>Gensini Center/Scale</strong></td><td>21.1328 / 23.0726</td><td>Gensini standardization</td></tr>
                             <tr><td><strong>Class Weight (Pos/Neg)</strong></td><td>0.6596 / 2.0664</td><td>Class balancing weights</td></tr>
                             <tr><td><strong>Framingham Weight</strong></td><td>0.5974</td><td>Framingham feature importance</td></tr>
                             <tr><td><strong>Gensini Weight</strong></td><td>0.4026</td><td>Gensini feature importance</td></tr>
-                            <tr><td><strong>Calibration α/β</strong></td><td>0.0347 / 2.0125</td><td>Platt calibration parameters</td></tr>
+                            <tr><td><strong>Calibration α/β</strong></td><td>-0.5576 / 3.357</td><td>Platt calibration parameters</td></tr>
                         </tbody>
                     </table>
 
@@ -1474,9 +1477,10 @@
                             <tr><th id="parameterHeader4">Parameter</th><th id="valueHeader4">Value</th><th id="descriptionHeader4">Description</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>k</strong></td><td>19</td><td>Number of nearest neighbors</td></tr>
-                            <tr><td><strong>Distance</strong></td><td>2.5</td><td>Minkowski distance parameter</td></tr>
-                            <tr><td><strong>Features</strong></td><td>Framingham_Score, Gensini_score, CT_FFR</td><td>Input feature dimensions</td></tr>
+                            <tr><td><strong>k</strong></td><td>23</td><td>Number of nearest neighbors</td></tr>
+                            <tr><td><strong>Distance (p)</strong></td><td>2.5</td><td>Minkowski distance parameter</td></tr>
+                            <tr><td><strong>Kernel</strong></td><td>Rectangular</td><td>Adaptive bandwidth h = d<sub>k</sub></td></tr>
+                            <tr><td><strong>Features</strong></td><td>Framingham_Score, Gensini_score, CT-FFR</td><td>Input feature dimensions</td></tr>
                             <tr><td><strong>Framingham Center/Scale</strong></td><td>18.9543 / 6.335</td><td>Framingham standardization</td></tr>
                             <tr><td><strong>Gensini Center/Scale</strong></td><td>21.1328 / 23.0726</td><td>Gensini standardization</td></tr>
                             <tr><td><strong>CT-FFR Center/Scale</strong></td><td>0.7453 / 0.1284</td><td>CT-FFR standardization</td></tr>
@@ -1484,11 +1488,10 @@
                             <tr><td><strong>Framingham Weight</strong></td><td>0.5837</td><td>Framingham feature importance</td></tr>
                             <tr><td><strong>Gensini Weight</strong></td><td>0.3113</td><td>Gensini feature importance</td></tr>
                             <tr><td><strong>CT-FFR Weight</strong></td><td>0.105</td><td>CT-FFR feature importance</td></tr>
-                            <tr><td><strong>Calibration α/β</strong></td><td>0.0454 / 2.0264</td><td>Platt calibration parameters</td></tr>
+                            <tr><td><strong>Calibration α/β</strong></td><td>-0.5453 / 3.325</td><td>Platt calibration parameters</td></tr>
                         </tbody>
                     </table>
                 </div>
-
                 <div class="methodology-section">
                     <h3 id="algorithmDetailsTitle">4. Machine Learning Algorithm Implementation</h3>
                     <div class="code-block">
@@ -1504,10 +1507,16 @@ function calculateRisk(inputFeatures, modelKey) {<br>
 &nbsp;const distances = calculateWeightedDistances(normalizedFeatures, trainX, model);<br><br>
 &nbsp;// 4. Select k nearest neighbors<br>
 &nbsp;const nearestNeighbors = selectNearestNeighbors(distances, trainY, model.k);<br><br>
-&nbsp;// 5. Apply class weights and distance weighting<br>
-&nbsp;const probability = calculateWeightedProbability(nearestNeighbors, model);<br><br>
-&nbsp;// 6. Apply Platt calibration<br>
-&nbsp;return applyPlattCalibration(probability, model.calibration);<br>
+&nbsp;// 5. Apply kernel weighting (bandwidth = distance of k-th neighbor)<br>
+&nbsp;const h = maxDistanceAmongK(nearestNeighbors);      // h = d_k<br>
+&nbsp;const prob = kernelWeightedMean(<br>
+&nbsp;&nbsp;nearestNeighbors, h,<br>
+&nbsp;&nbsp;model.kernel /* 'epanechnikov' | 'rectangular' */,<br>
+&nbsp;&nbsp;model.class_weights<br>
+&nbsp;);<br><br>
+&nbsp;// 6. Apply Platt calibration (GLM-fitted)<br>
+&nbsp;const p = 1 / (1 + Math.exp(-(model.calibration.alpha + model.calibration.beta * Math.min(1-1e-6, Math.max(1e-6, prob)))) );<br>
+&nbsp;return p;<br>
 }<br><br>
                         </div>
                     </div>
@@ -1518,7 +1527,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                         <ul style="margin-top: 10px; margin-left: 20px;">
                             <li id="integration1">Real-time loading of complete training datasets from CSV files</li>
                             <li id="integration2">Automatic feature standardization using training set parameters</li>
-                            <li id="integration3">Optimized nearest neighbor selection for accurate prediction</li>
+                            <li id="integration3">Optimized kernel weighting and nearest neighbor selection for accurate prediction</li>
                             <li id="integration4">Platt scaling for probability calibration</li>
                         </ul>
                     </div>
@@ -1821,7 +1830,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     </div>
                     <div class="score-card">
                         <h4>Model Neighbors</h4>
-                        <div class="score-value" id="neighbors1">19</div>
+                        <div class="score-value" id="neighbors1">-</div>
                     </div>
                 </div>
                 
@@ -1997,7 +2006,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     </div>
                     <div class="score-card">
                         <h4>Model Neighbors</h4>
-                        <div class="score-value" id="neighbors2">19</div>
+                        <div class="score-value" id="neighbors2">-</div>
                     </div>
                 </div>
                 
@@ -2166,7 +2175,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     </div>
                     <div class="score-card">
                         <h4>Model Neighbors</h4>
-                        <div class="score-value" id="neighbors3">19</div>
+                        <div class="score-value" id="neighbors3">-</div>
                     </div>
                 </div>
                 
@@ -2353,7 +2362,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     </div>
                     <div class="score-card">
                         <h4>Model Neighbors</h4>
-                        <div class="score-value" id="neighbors4">19</div>
+                        <div class="score-value" id="neighbors4">-</div>
                     </div>
                 </div>
                 
@@ -2583,124 +2592,53 @@ function calculateRisk(inputFeatures, modelKey) {<br>
             "model1x": {
                 "display_name": "Model 1: X_score Only",
                 "features": ["X_score"],
-                "k": 19,
-                "distance": 2,
-                "scaling_center": {
-                    "X_score": 33.0968
-                },
-                "scaling_scale": {
-                    "X_score": 46.7473
-                },
-                "class_weights": {
-                    "pos": 0.6596,
-                    "neg": 2.0664
-                },
-                "feature_weights": {
-                    "X_score": 1
-                },
-                "calibration": {
-                    "type": "platt",
-                    "alpha": -0.5375,
-                    "beta": 3.201
-                },
-                "n_samples": 591,
-                "n_features": 1,
-                "positive_rate": 0.758
+                "k": 23,
+                "distance": 1.0,
+                "kernel": "rectangular",
+                "scaling_center": { "X_score": 33.0968 },
+                "scaling_scale":  { "X_score": 46.7473 },
+                "class_weights": { "pos": 0.6596, "neg": 2.0664 },
+                "feature_weights": { "X_score": 1.0 },
+                "calibration": { "type": "platt_glm", "alpha": -1.0445, "beta": 4.6656 }
             },
             "model2xf": {
                 "display_name": "Model 2: X_score + Framingham",
-                "features": ["X_score", "Framingham_Score"],
-                "k": 19,
+                "features": ["X_score","Framingham_Score"],
+                "k": 23,
                 "distance": 2.5,
-                "scaling_center": {
-                    "X_score": 33.0968,
-                    "Framingham_Score": 18.9543
-                },
-                "scaling_scale": {
-                    "X_score": 46.7473,
-                    "Framingham_Score": 6.335
-                },
-                "class_weights": {
-                    "pos": 0.6596,
-                    "neg": 2.0664
-                },
-                "feature_weights": {
-                    "X_score": 0.8002,
-                    "Framingham_Score": 0.1998
-                },
-                "calibration": {
-                    "type": "platt",
-                    "alpha": -0.7712,
-                    "beta": 3.7228
-                },
-                "n_samples": 591,
-                "n_features": 2,
-                "positive_rate": 0.758
+                "kernel": "epanechnikov",
+                "scaling_center": { "X_score": 33.0968, "Framingham_Score": 18.9543 },
+                "scaling_scale":  { "X_score": 46.7473, "Framingham_Score": 6.335 },
+                "class_weights": { "pos": 0.6596, "neg": 2.0664 },
+                "feature_weights": { "X_score": 0.9002, "Framingham_Score": 0.0998 },
+                "calibration": { "type": "platt_glm", "alpha": -1.1161, "beta": 4.7379 }
             },
             "model3fg": {
                 "display_name": "Model 3: Framingham + Gensini",
-                "features": ["Framingham_Score", "Gensini_score"],
-                "k": 19,
-                "distance": 1.5,
-                "scaling_center": {
-                    "Framingham_Score": 18.9543,
-                    "Gensini_score": 21.1328
-                },
-                "scaling_scale": {
-                    "Framingham_Score": 6.335,
-                    "Gensini_score": 23.0726
-                },
-                "class_weights": {
-                    "pos": 0.6596,
-                    "neg": 2.0664
-                },
-                "feature_weights": {
-                    "Framingham_Score": 0.5974,
-                    "Gensini_score": 0.4026
-                },
-                "calibration": {
-                    "type": "platt",
-                    "alpha": 0.0347,
-                    "beta": 2.0125
-                },
-                "n_samples": 591,
-                "n_features": 2,
-                "positive_rate": 0.758
+                "features": ["Framingham_Score","Gensini_score"],
+                "k": 23,
+                "distance": 2.5,
+                "kernel": "rectangular",
+                "scaling_center": { "Framingham_Score": 18.9543, "Gensini_score": 21.1328 },
+                "scaling_scale":  { "Framingham_Score": 6.335,   "Gensini_score": 23.0726 },
+                "class_weights": { "pos": 0.6596, "neg": 2.0664 },
+                "feature_weights": { "Framingham_Score": 0.5974, "Gensini_score": 0.4026 },
+                "calibration": { "type": "platt_glm", "alpha": -0.5576, "beta": 3.357 }
             },
             "model4fgct": {
                 "display_name": "Model 4: Framingham + Gensini + CT-FFR",
-                "features": ["Framingham_Score", "Gensini_score", "CT_FFR"],
-                "k": 19,
+                "features": ["Framingham_Score","Gensini_score","CT_FFR"],
+                "k": 23,
                 "distance": 2.5,
-                "scaling_center": {
-                    "Framingham_Score": 18.9543,
-                    "Gensini_score": 21.1328,
-                    "CT_FFR": 0.7453
-                },
-                "scaling_scale": {
-                    "Framingham_Score": 6.335,
-                    "Gensini_score": 23.0726,
-                    "CT_FFR": 0.1284
-                },
-                "class_weights": {
-                    "pos": 0.6596,
-                    "neg": 2.0664
-                },
-                "feature_weights": {
-                    "Framingham_Score": 0.5837,
-                    "Gensini_score": 0.3113,
-                    "CT_FFR": 0.105
-                },
-                "calibration": {
-                    "type": "platt",
-                    "alpha": 0.0454,
-                    "beta": 2.0264
-                },
-                "n_samples": 591,
-                "n_features": 3,
-                "positive_rate": 0.758
+                "kernel": "rectangular",
+                "scaling_center": { "Framingham_Score": 18.9543, "Gensini_score": 21.1328, "CT_FFR": 0.7453 },
+                "scaling_scale":  { "Framingham_Score": 6.335,   "Gensini_score": 23.0726, "CT_FFR": 0.1284 },
+                "class_weights": { "pos": 0.6596, "neg": 2.0664 },
+                "feature_weights": { "Framingham_Score": 0.5837, "Gensini_score": 0.3113, "CT_FFR": 0.105 },
+                "calibration": { "type": "platt_glm", "alpha": -0.5453, "beta": 3.325 }
             }
         };
+
 
         let trainingData = {};
         let isDataLoaded = false;
@@ -3186,7 +3124,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 dataIntegrationTitle: "数据集成：",
                 integration1: "从CSV文件实时加载完整训练数据集",
                 integration2: "使用训练集参数自动特征标准化",
-                integration3: "优化的近邻选择以实现准确预测",
+                integration3: "优化的核权重近邻选择以实现准确预测",
                 integration4: "Platt缩放进行概率校准",
                 riskStratificationTitle: "风险分层",
                 riskLevelHeader: "风险等级",
@@ -3729,27 +3667,37 @@ function calculateRisk(inputFeatures, modelKey) {<br>
             distances.sort((a, b) => a.distance - b.distance);
             const nearestK = distances.slice(0, model.k);
 
-            // 4. 应用类别权重和反距离加权
+            // 4. 自适应带宽h = d_k的核加权
+            const EPS = 1e-8;
+            const h = Math.max(nearestK[nearestK.length - 1].distance, EPS);
+
             let weightedSum = 0;
             let totalWeight = 0;
 
-            const EPS = 1e-3;        // 距离平滑项
-            const WMAX = 100;        // 反距离权重上限，防止单个邻居“爆表”
+            nearestK.forEach(n => {
+                const cw = (n.label === 1) ? model.class_weights.pos : model.class_weights.neg;
+                const u  = n.distance / h;
 
-            nearestK.forEach(neighbor => {
-                const classWeight = neighbor.label === 1 ? model.class_weights.pos : model.class_weights.neg;
-                const GAMMA = 1.5; // 可调 1.0~2.0
-                const distanceWeight = 1 / Math.pow(neighbor.distance + EPS, GAMMA);
-                const K = 35;                    // 原 19
-                const P = 2.0;                   // 原 2.5
-                const WMAX = 50;                 // 原 100，可再下调
-                const weight = classWeight * Math.min(distanceWeight, WMAX);
-                
-                weightedSum += neighbor.label * weight;
-                totalWeight += weight;
+                // kernel weight
+                let kw;
+                if (model.kernel === 'epanechnikov') {
+                    kw = Math.max(0, 1 - u*u);     // Epanechnikov
+                } else {
+                    kw = 1;                        // Rectangular
+                }
+
+                const w = cw * kw;
+                // 若全部 kw 恰好为 0，可在循环后 fallback 到等权
+                if (w > 0) {
+                    weightedSum += n.label * w;
+                    totalWeight += w;
+                }
             });
 
-            const rawProbability = totalWeight > 0 ? weightedSum / totalWeight : 0;
+            // fallback：若核导致全 0，退到等权
+            const rawProbability = (totalWeight > 0)
+                ? (weightedSum / totalWeight)
+                : (nearestK.reduce((s,n)=>s+n.label,0) / nearestK.length);
 
             // 5. Platt校准
             const alpha = model.calibration.alpha;
@@ -3991,6 +3939,10 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                         calibration: modelParams[modelType].calibration
                     }
                 };
+
+                // 动态显示 k
+                const neighborsEl = document.getElementById(`neighbors${modelNum}`);
+                if (neighborsEl) neighborsEl.textContent = modelParams[modelType].k;
 
             } catch (error) {
                 console.error('计算错误:', error);
@@ -4913,7 +4865,7 @@ Model 4 (F+G+CT):Framingham_Score + Gensini_Score + CT-FFR
                 // 模型参数显示
                 let paramsDisplay = '';
                 if (result.modelParams) {
-                    paramsDisplay = `<p style="margin-bottom: 5px;"><strong>模型参数:</strong> k=${result.modelParams.k}, distance=${result.modelParams.distance}</p>`;
+                    paramsDisplay = `<p style="margin-bottom: 5px;"><strong>模型参数:</strong> k=${result.modelParams.k}, p=${result.modelParams.distance}, kernel=${result.modelParams.kernel || 'rectangular'}</p>`;
                 }
 
                 historyItem.innerHTML = `
