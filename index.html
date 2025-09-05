@@ -1659,7 +1659,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                         <tr><td id="vessel_subclavian">Subclavian Artery (SA)</td><td>-</td><td>1</td><td>(L_SA + R_SA) × 1</td></tr>
                         <tr><td id="vessel_cca">Common Carotid Artery (CCA)</td><td>8</td><td>12</td><td>Single: value × 8, Both: (L_CCA + R_CCA) × 12</td></tr>
                         <tr><td id="vessel_ica">Internal Carotid Artery (ICA)</td><td>9</td><td>12</td><td>Single: value × 9, Both: (L_ICA + R_ICA) × 12</td></tr>
-                        <tr><td id="vessel_baa">Basilar Artery (BAA)</td><td>25</td><td>-</td><td>BAA × 25</td></tr>
+                        <tr><td id="vessel_ba">Basilar Artery (BA)</td><td>25</td><td>-</td><td>BA × 25</td></tr>
                         <tr><td id="vessel_va">Vertebral Artery (VA)</td><td>19</td><td>22</td><td>Single: value × 19, Both: (L_VA + R_VA) × 22</td></tr>
                         <tr><td id="vessel_aca">Anterior Cerebral Artery (ACA)</td><td>8</td><td>9</td><td>Single: value × 8, Both: (L_ACA + R_ACA) × 9</td></tr>
                         <tr><td id="vessel_mca">Middle Cerebral Artery (MCA)</td><td>11</td><td>13</td><td>Single: value × 11, Both: (L_MCA + R_MCA) × 13</td></tr>
@@ -1976,8 +1976,8 @@ function calculateRisk(inputFeatures, modelKey) {<br>
 
                 <!-- Basilar Artery -->
                 <div class="form-group">
-                    <label for="baa" id="baaLabel">Basilar Artery (BAA) Stenosis (≥0):</label>
-                    <input type="number" id="baa" step="0.01" min="0" placeholder="≥0.00">
+                    <label for="ba" id="baLabel">Basilar Artery (BA) Stenosis (≥0):</label>
+                    <input type="number" id="ba" step="0.01" min="0" placeholder="≥0.00">
                 </div>
 
                 <!-- Vertebral Arteries -->
@@ -2301,7 +2301,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 <div class="form-group"><label for="r_cca_4" id="rCCALabel4">Right Common Carotid Artery (R_CCA) Stenosis (≥0):</label><input type="number" id="r_cca_4" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_ica_4" id="lICALabel4">Left Internal Carotid Artery (L_ICA) Stenosis (≥0):</label><input type="number" id="l_ica_4" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="r_ica_4" id="rICALabel4">Right Internal Carotid Artery (R_ICA) Stenosis (≥0):</label><input type="number" id="r_ica_4" step="0.01" min="0" placeholder="≥0.00"></div>
-                <div class="form-group"><label for="baa_4" id="baaLabel4">Basilar Artery (BAA) Stenosis (≥0):</label><input type="number" id="baa_4" step="0.01" min="0" placeholder="≥0.00"></div>
+                <div class="form-group"><label for="ba_4" id="baLabel4">Basilar Artery (BA) Stenosis (≥0):</label><input type="number" id="ba_4" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_va_4" id="lVALabel4">Left Vertebral Artery (L_VA) Stenosis (≥0):</label><input type="number" id="l_va_4" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="r_va_4" id="rVALabel4">Right Vertebral Artery (R_VA) Stenosis (≥0):</label><input type="number" id="r_va_4" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_aca_4" id="lACALabel4">Left Anterior Cerebral Artery (L_ACA) Stenosis (≥0):</label><input type="number" id="l_aca_4" step="0.01" min="0" placeholder="≥0.00"></div>
@@ -2521,7 +2521,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 <div class="form-group"><label for="r_cca_6" id="rCCALabel6">Right Common Carotid Artery (R_CCA) Stenosis (≥0):</label><input type="number" id="r_cca_6" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_ica_6" id="lICALabel6">Left Internal Carotid Artery (L_ICA) Stenosis (≥0):</label><input type="number" id="l_ica_6" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="r_ica_6" id="rICALabel6">Right Internal Carotid Artery (R_ICA) Stenosis (≥0):</label><input type="number" id="r_ica_6" step="0.01" min="0" placeholder="≥0.00"></div>
-                <div class="form-group"><label for="baa_6" id="baaLabel6">Basilar Artery (BAA) Stenosis (≥0):</label><input type="number" id="baa_6" step="0.01" min="0" placeholder="≥0.00"></div>
+                <div class="form-group"><label for="ba_6" id="baLabel6">Basilar Artery (BA) Stenosis (≥0):</label><input type="number" id="ba_6" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_va_6" id="lVALabel6">Left Vertebral Artery (L_VA) Stenosis (≥0):</label><input type="number" id="l_va_6" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="r_va_6" id="rVALabel6">Right Vertebral Artery (R_VA) Stenosis (≥0):</label><input type="number" id="r_va_6" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_aca_6" id="lACALabel6">Left Anterior Cerebral Artery (L_ACA) Stenosis (≥0):</label><input type="number" id="l_aca_6" step="0.01" min="0" placeholder="≥0.00"></div>
@@ -2648,7 +2648,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 <div class="form-group"><label for="r_cca_7" id="rCCALabel7">Right Common Carotid Artery (R_CCA) Stenosis (≥0):</label><input type="number" id="r_cca_7" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_ica_7" id="lICALabel7">Left Internal Carotid Artery (L_ICA) Stenosis (≥0):</label><input type="number" id="l_ica_7" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="r_ica_7" id="rICALabel7">Right Internal Carotid Artery (R_ICA) Stenosis (≥0):</label><input type="number" id="r_ica_7" step="0.01" min="0" placeholder="≥0.00"></div>
-                <div class="form-group"><label for="baa_7" id="baaLabel7">Basilar Artery (BAA) Stenosis (≥0):</label><input type="number" id="baa_7" step="0.01" min="0" placeholder="≥0.00"></div>
+                <div class="form-group"><label for="ba_7" id="baLabel7">Basilar Artery (BA) Stenosis (≥0):</label><input type="number" id="ba_7" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_va_7" id="lVALabel7">Left Vertebral Artery (L_VA) Stenosis (≥0):</label><input type="number" id="l_va_7" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="r_va_7" id="rVALabel7">Right Vertebral Artery (R_VA) Stenosis (≥0):</label><input type="number" id="r_va_7" step="0.01" min="0" placeholder="≥0.00"></div>
                 <div class="form-group"><label for="l_aca_7" id="lACALabel7">Left Anterior Cerebral Artery (L_ACA) Stenosis (≥0):</label><input type="number" id="l_aca_7" step="0.01" min="0" placeholder="≥0.00"></div>
@@ -3524,7 +3524,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 vessel_subclavian: "Subclavian Artery (SA)",
                 vessel_cca: "Common Carotid Artery (CCA)",
                 vessel_ica: "Internal Carotid Artery (ICA)",
-                vessel_baa: "Basilar Artery (BAA)",
+                vessel_ba: "Basilar Artery (BA)",
                 vessel_va: "Vertebral Artery (VA)",
                 vessel_aca: "Anterior Cerebral Artery (ACA)",
                 vessel_mca: "Middle Cerebral Artery (MCA)",
@@ -4036,7 +4036,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 vessel_subclavian: "锁骨下动脉（SA）",
                 vessel_cca: "颈总动脉（CCA）",
                 vessel_ica: "颈内动脉（ICA）",
-                vessel_baa: "基底动脉（BAA）",
+                vessel_ba: "基底动脉（BA）",
                 vessel_va: "椎动脉（VA）",
                 vessel_aca: "大脑前动脉（ACA）",
                 vessel_mca: "大脑中动脉（MCA）",
@@ -4409,9 +4409,9 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                 xScore += rICA * 9;
             }
 
-            const baa = vesselData.baa || 0;
-            if (baa > 0) {
-                xScore += baa * 25;
+            const ba = vesselData.ba || 0;
+            if (ba > 0) {
+                xScore += ba * 25;
             }
 
             const lVA = vesselData.l_va || 0;
@@ -4779,7 +4779,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     r_cca: parseFloat(document.getElementById('r_cca').value) || 0,
                     l_ica: parseFloat(document.getElementById('l_ica').value) || 0,
                     r_ica: parseFloat(document.getElementById('r_ica').value) || 0,
-                    baa: parseFloat(document.getElementById('baa').value) || 0,
+                    ba: parseFloat(document.getElementById('ba').value) || 0,
                     l_va: parseFloat(document.getElementById('l_va').value) || 0,
                     r_va: parseFloat(document.getElementById('r_va').value) || 0,
                     l_aca: parseFloat(document.getElementById('l_aca').value) || 0,
@@ -4862,7 +4862,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     r_cca: parseFloat(document.getElementById('r_cca_4').value) || 0,
                     l_ica: parseFloat(document.getElementById('l_ica_4').value) || 0,
                     r_ica: parseFloat(document.getElementById('r_ica_4').value) || 0,
-                    baa: parseFloat(document.getElementById('baa_4').value) || 0,
+                    ba: parseFloat(document.getElementById('ba_4').value) || 0,
                     l_va: parseFloat(document.getElementById('l_va_4').value) || 0,
                     r_va: parseFloat(document.getElementById('r_va_4').value) || 0,
                     l_aca: parseFloat(document.getElementById('l_aca_4').value) || 0,
@@ -4957,7 +4957,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     r_cca: parseFloat(document.getElementById('r_cca_6').value) || 0,
                     l_ica: parseFloat(document.getElementById('l_ica_6').value) || 0,
                     r_ica: parseFloat(document.getElementById('r_ica_6').value) || 0,
-                    baa: parseFloat(document.getElementById('baa_6').value) || 0,
+                    ba: parseFloat(document.getElementById('ba_6').value) || 0,
                     l_va: parseFloat(document.getElementById('l_va_6').value) || 0,
                     r_va: parseFloat(document.getElementById('r_va_6').value) || 0,
                     l_aca: parseFloat(document.getElementById('l_aca_6').value) || 0,
@@ -5026,7 +5026,7 @@ function calculateRisk(inputFeatures, modelKey) {<br>
                     r_cca: parseFloat(document.getElementById('r_cca_7').value) || 0,
                     l_ica: parseFloat(document.getElementById('l_ica_7').value) || 0,
                     r_ica: parseFloat(document.getElementById('r_ica_7').value) || 0,
-                    baa: parseFloat(document.getElementById('baa_7').value) || 0,
+                    ba: parseFloat(document.getElementById('ba_7').value) || 0,
                     l_va: parseFloat(document.getElementById('l_va_7').value) || 0,
                     r_va: parseFloat(document.getElementById('r_va_7').value) || 0,
                     l_aca: parseFloat(document.getElementById('l_aca_7').value) || 0,
@@ -5575,7 +5575,7 @@ ${dataDetails}
 颈总动脉_双侧（L_CCA和R_CCA）12
 颈内动脉_单侧（L_ICA或R_ICA）9
 颈内动脉_双侧（L_ICA和R_ICA）12
-基底动脉（BAA）25
+基底动脉（BA）25
 椎动脉_单侧（L_VA或R_VA）19
 椎动脉_双侧（L_VA和R_VA）22
 大脑前_单侧（L_ACA或R_ACA）8
